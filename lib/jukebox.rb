@@ -21,7 +21,7 @@ end
 def play(songs)
   puts "Please enter a song name or number:"
   user_choice = gets.strip
-  if user_choice.to_i > 0 && user_choice.to_i <= 9
+  if user_choice.to_i.between?(1,9) #why wouldn't 'user_choice.to_i <= songs.length' work?  
     puts "Playing #{songs[user_choice.to_i - 1]}"
   elsif songs.include?(user_choice)
     puts "Playing #{user_choice}"
@@ -42,22 +42,24 @@ end
 
 def run(songs)
   puts "Please enter a command:"
-  user_input = gets.strip
-  until user_input == 'exit'
+  user_input = ""
+  while user_input != "exit"
+    user_input = gets.strip
     case user_input
-    when "list"
-      list(songs)
-    when "play"
-      play(songs)
+    when "exit"
+      exit_jukebox
+      break
     when "help"
       help
+    when "play"
+      play(songs)
+    when "list"
+      list(songs)
     end
-    exit_jukebox
-    break
   end
 end
   
-run(songs)
+#run(songs)
 
 
 
